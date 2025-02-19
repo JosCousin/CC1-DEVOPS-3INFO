@@ -1,4 +1,4 @@
-name: Run Tests
+name: CI Pipeline
 
 on:
   push:
@@ -7,27 +7,23 @@ on:
   pull_request:
     branches:
       - main
-
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Install Node.js
+      - name: Install Node 
         uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: "npm"
 
       - name: Install Dependencies
         run: npm install
 
-      - name: Run ESLint
+      - name: ESLint (JS/TS) Action 
         run: npx eslint .
-
-
-      - name: Run Tests
+        
+      - name: Tests
         run: npm test
